@@ -73,12 +73,48 @@ public class Graf {
 		return (nodes.get(id));
 	}
 	
+	/**
+     * addNode adds a Node in the graph
+	 *
+	 * @param n : Node to add
+     */
 	public void addNode(Node n) {
-		
+		if (!(this.existsNode(n))) {
+			adjList.put(n, new ArrayList<Node>());
+			nodes.add(n);
+		}
 	}
 	
+	/**
+     * addNode adds a Node in the graph
+	 *
+	 * @param id : id of the Node to add
+     */
+	public void addNode(int id) {
+		Node n = new Node(id);
+		addNode(n);
+	}
+	
+	/**
+     * removeNode removes a Node in the graph
+	 *
+	 * @param n : Node to remove
+     */
 	public void removeNode(Node n) {
-		
+		if (this.existsNode(n)) {
+			adjList.remove(n);
+			nodes.remove(n);
+		}
+	}
+	
+	/**
+     * removeNode removes a Node in the graph
+	 *
+	 * @param id : id of the Node to remove
+     */
+	public void removeNode(int id) {
+		Node n = getNode(id);
+		removeNode(n);
 	}
 	
 	public List<Node> getSuccessors(Node n) {
@@ -89,6 +125,11 @@ public class Graf {
 		return true;
 	}
 	
+	/**
+     * getAllNodes returns the list of all nodes of the graph
+	 *
+	 * @return List of all nodes of the graph
+     */
 	public List<Node> getAllNodes() {
 		return nodes;
 	}
