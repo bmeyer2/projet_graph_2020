@@ -36,6 +36,7 @@ public class Node {
 			i++;
 		}
 		id = i;
+		isIdTaken[i] = true;
         name = "";
     }
 
@@ -46,6 +47,7 @@ public class Node {
      */
     public void Node(int i) {
 		id = i;
+		isIdTaken[i] = true;
 		name = "";
 	}
 
@@ -61,6 +63,15 @@ public class Node {
     }
 
     // METHODS
+
+	/**
+	* Initialize the static boolean Array to keep track of the available Node ids
+	*/
+	public void init() {
+		for (int i=0; i<100; i++) {
+			isIdTaken[i] = false;
+		}
+	}
 
     /**
      * Override of the equals method
@@ -78,8 +89,7 @@ public class Node {
      * @return int hash code of the node
      */
     public int hashCode() {
-        int hash = 5;
-        return this.id * 5;
+        return (this.id+1)*5;
     }
 
     /**

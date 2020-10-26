@@ -59,5 +59,53 @@ public class Edge {
 		head = h;
 		weight = w;
 	}
+	
+	// METHODS
+
+    /**
+     * Override of the equals method
+     *
+     * @param edge Edge to be compared with
+     * @return boolean stating if the two edge are equals
+     */
+    public boolean equals(Edge edge) {
+        return ((tail.equals(edge.getTail())) && (head.equals(edge.getHead())) && (weight == edge.getWeight()));
+    }
+
+    /**
+     * Override of the hashCode method
+     *
+     * @return int hash code of the edge
+     */
+    public int hashCode() {
+        return ((this.head.getId()+1)*5 + (this.tail.getId()+1)*3 + weight);
+    }
+
+    /**
+     * Getter for the Edge weight
+     *
+     * @return weight of the edge
+     */
+    public int getWeight() {
+        return weight;
+    }
+	
+	 /**
+     * Getter for the Edge tail
+     *
+     * @return tail of the edge
+     */
+    public Node getTail() {
+        return tail;
+    }
+	
+	 /**
+     * Getter for the Edge head
+     *
+     * @return head of the edge
+     */
+    public Node getHead() {
+        return head;
+    }
 
 }
