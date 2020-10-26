@@ -17,9 +17,11 @@ public class Node {
      *
      * id : identifier of the node
      * name : [optional] name of the node
+	 * graf : Graph of the node
      */
     private int id;
     private String name;
+	private static boolean[] isIdTaken;
 
     // CONSTRUCTORS
 
@@ -27,7 +29,11 @@ public class Node {
      * Empty constructor of the class Node
      */
     public void Node() {
-        id = 0;
+        int i = 0;
+		while (isIdTaken[i]) {
+			i++;
+		}
+		id = i;
         name = "";
     }
 
@@ -37,9 +43,9 @@ public class Node {
      * @param i Identifier of the node
      */
     public void Node(int i) {
-        id = i;
-        name = "";
-    }
+		id = i;
+		name = "";
+	}
 
     /**
      * Constructor of the class Node
