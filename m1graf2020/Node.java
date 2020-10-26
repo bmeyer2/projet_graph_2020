@@ -1,5 +1,7 @@
 package m1graf2020;
 
+import java.util.*;
+
 /**
  * The class Node codes a node of the graph.
  *
