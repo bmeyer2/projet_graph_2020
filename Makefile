@@ -13,21 +13,27 @@ SRC=m1graf2020
 CLASSES = \
 		$(SRC)/Node.java \
 		$(SRC)/Graf.java \
+		$(SRC)/Edge.java \
 		$(SRC)/Main.java
 
-all: main exec
+all: main
 
 main: $(CLASSES)
 	@echo "~~~ Building ~~~"
 	$(JC) $(JFLAGS) $(SRC)/*.java
 
 exec: 
+	@echo "~~~ Starting ~~~"
 	java $(SRC).Main
 
 clean:
 	@echo "~~~ Cleaning ~~~" 
 	rm -f $(SRC)/*.class
+	rm -rf Javadoc
 
 mrproper: clean
-	rm -f main
 	rm -f img/*.png
+	
+javadoc: 
+	@echo "~~~ Javadoc ~~~"
+	javadoc m1graf2020 -d Javadoc
