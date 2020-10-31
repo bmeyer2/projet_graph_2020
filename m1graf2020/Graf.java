@@ -92,8 +92,7 @@ public class Graf {
 	 * @param id : id of the Node to add
      */
 	public void addNode(int id) {
-		Node n = new Node(id);
-		addNode(n);
+		addNode(new Node(id));
 	}
 	
 	/**
@@ -105,9 +104,10 @@ public class Graf {
 		if (existsNode(n)) {
 			adjList.remove(n);
 			nodes.remove(n);
-			for(int i=0; i<nodes.size(); i++){
-				for(int j=0; j<nodes.size(); j++) {
-
+			for(int i=0; i<nbNodes(); i++){
+				if (getSuccessors(nodes.get(i)).contains(n)) {
+					getSuccessors(nodes.get(i)).remove(n);
+				}
 			}
 		}
 	}
@@ -118,16 +118,38 @@ public class Graf {
 	 * @param id : id of the Node to remove
      */
 	public void removeNode(int id) {
-		Node n = getNode(id);
-		removeNode(n);
+		removeNode(getNode(id));
 	}
 	
+	/**
+     * getSuccessors returns the successors of the given node
+	 *
+	 * @param n : given node
+	 * @return List of the successors
+     */
 	public List<Node> getSuccessors(Node n) {
-		return new ArrayList<Node>();
+		return adjList.get(n);
 	}
 	
+	/**
+     * getSuccessors returns the successors of the given node
+	 *
+	 * @param id : id of the given node
+	 * @return List of the successors
+     */
+	public List<Node> getSuccessors(int id) {
+		return getSuccessors(getNode(id));
+	}
+	
+	/**
+     * adjacent returns true if the given nodes are adjacents
+	 *
+	 * @param u : first node
+	 * @param v : second node
+	 * @return boolean if the nodes are adjacents
+     */
 	public boolean adjacent(Node u, Node v) {
-		return true;
+		return (getSuccessors(u).contains(v) || getSuccessors(v).contains(u));
 	}
 	
 	/**
