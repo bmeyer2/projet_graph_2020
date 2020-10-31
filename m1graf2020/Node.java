@@ -23,7 +23,7 @@ public class Node {
      */
     private int id;
     private String name;
-	private static boolean[] isIdTaken;
+	private static boolean[] isIdTaken = {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
 
     // CONSTRUCTORS
 
@@ -59,19 +59,11 @@ public class Node {
      */
     public Node(int i, String n) {
         id = i;
+		isIdTaken[i] = true;
         name = n;
     }
 
     // METHODS
-
-	/**
-	* Initialize the static boolean Array to keep track of the available Node ids
-	*/
-	public void init() {
-		for (int i=0; i<100; i++) {
-			isIdTaken[i] = false;
-		}
-	}
 
     /**
      * Override of the equals method
@@ -99,6 +91,15 @@ public class Node {
      */
     public int getId() {
         return id;
+    }
+	
+	 /**
+     * Getter for the isIdTaken array
+     *
+     * @return isIdTaken array
+     */
+    public boolean[] getIsIdTakenArray() {
+        return isIdTaken;
     }
     
 }

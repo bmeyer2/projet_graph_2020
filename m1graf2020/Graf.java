@@ -102,6 +102,7 @@ public class Graf {
      */
 	public void removeNode(Node n) {
 		if (existsNode(n)) {
+			n.getIsIdTakenArray()[n.getId()] = false;
 			adjList.remove(n);
 			nodes.remove(n);
 			for(int i=0; i<nbNodes(); i++){
