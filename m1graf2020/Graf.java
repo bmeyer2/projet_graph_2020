@@ -132,7 +132,7 @@ public class Graf {
 	}
 	
 	/**
-     * getSuccessors returns the successors of the given node
+     * getSuccessors returns the successors of the given node id
 	 *
 	 * @param id : id of the given node
 	 * @return List of the successors
