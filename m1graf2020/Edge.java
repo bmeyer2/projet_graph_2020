@@ -29,7 +29,7 @@ public class Edge {
     /**
      * Empty constructor of the class Edge
      */
-    public void Edge() {
+    public Edge() {
 		tail = new Node();
 		head = new Node();
 		weight = 0;
@@ -41,7 +41,7 @@ public class Edge {
      * @param t tail node of the edge
 	 * @param h head node of the edge
 	 */
-    public void Edge(Node t, Node h) {
+    public Edge(Node t, Node h) {
 		tail = t;
 		head = h;
 		weight = 0;
@@ -54,7 +54,7 @@ public class Edge {
 	 * @param h head node of the edge
 	 * @param w weight of the edge
 	 */
-    public void Edge(Node t, Node h, int w) {
+    public Edge(Node t, Node h, int w) {
 		tail = t;
 		head = h;
 		weight = w;

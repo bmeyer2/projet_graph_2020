@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class Graf {
 
-    // ATTRIBUTES
+    // ---------- ATTRIBUTES ----------
 
     /*
      * Attributes of the class Graf.java
@@ -22,12 +22,12 @@ public class Graf {
     private Map<Node, List<Node>> adjList;
     private List<Node> nodes;
 
-    // CONSTRUCTORS
+    // ---------- CONSTRUCTORS ----------
 
     /**
      * Empty constructor of the class Graf
      */
-    public void Graf() {
+    public Graf() {
         adjList = new HashMap<Node, List<Node>>();
     }
 
@@ -36,13 +36,14 @@ public class Graf {
 	 *
 	 * @param map : map of adjacency lists of nodes that represents the graph
      */
-	public void Graf(Map<Node, List<Node>> map) {
+	public Graf(Map<Node, List<Node>> map) {
         adjList = new HashMap<Node,List<Node>>(map);
 		nodes = new ArrayList<Node>();
         nodes.addAll(map.keySet());
     }
 
-	// METHODS
+	// ---------- METHODS ----------
+	// ------ Nodes
 
 	/**
      * nbNodes returns the numbers of nodes in the graph
@@ -50,7 +51,7 @@ public class Graf {
 	 * @return numbers of nodes in the graph
      */
 	public int nbNodes() {
-		return this.nodes.size();
+		return nodes.size();
 	}
 	
 	/**
@@ -79,7 +80,7 @@ public class Graf {
 	 * @param n : Node to add
      */
 	public void addNode(Node n) {
-		if (!(this.existsNode(n))) {
+		if (!(existsNode(n))) {
 			adjList.put(n, new ArrayList<Node>());
 			nodes.add(n);
 		}
@@ -101,9 +102,13 @@ public class Graf {
 	 * @param n : Node to remove
      */
 	public void removeNode(Node n) {
-		if (this.existsNode(n)) {
+		if (existsNode(n)) {
 			adjList.remove(n);
 			nodes.remove(n);
+			for(int i=0; i<nodes.size(); i++){
+				for(int j=0; j<nodes.size(); j++) {
+
+			}
 		}
 	}
 	
@@ -132,5 +137,93 @@ public class Graf {
      */
 	public List<Node> getAllNodes() {
 		return nodes;
+	}
+	
+	// ------ Edges
+	
+	public int nbEdges() {
+		return 0;
+	}
+	
+	public boolean existsEdge(Node u, Node v) {
+		return true;
+	}
+	
+	public void addEdge(Node from, Node to) {
+		
+	}
+	
+	public void removeEdge(Node from, Node to) {
+		
+	}
+	
+	public List<Edge> getOutEdges(Node n) {
+		return new ArrayList<Edge>();
+	}
+	
+	public List<Edge> getInEdges(Node n) {
+		return new ArrayList<Edge>();
+	}
+	
+	public List<Edge> getIncidentEdges(Node n) {
+		return new ArrayList<Edge>();
+	}
+	
+	public List<Edge> getAllEdges() {
+		return new ArrayList<Edge>();
+	}
+	
+	// ------ Degrees
+	
+	public int inDegree(Node n) {
+		return 0;
+	}
+	
+	public int outDegree(Node n) {
+		return 0;
+	}
+	
+	public int degree(Node n) {
+		return 0;
+	}
+	
+	// ------ Graph Representation
+	
+	/*public int[] toSuccessorArray() {
+		
+	}
+	
+	public int[][] toAdjMatrix() {
+		
+	}*/
+	
+	// ------ Graph Transformation
+	
+	public Graf getReverse() {
+		return new Graf();
+	}
+	
+	public Graf getTransitiveClosure() {
+		return new Graf();
+	}
+	
+	// ------ Graph Traversal
+	
+	public List<Node> getDFS() {
+		return new ArrayList<Node>();
+	}
+	
+	public List<Node> getBFS() {
+		return new ArrayList<Node>();
+	}
+	
+	// ------ Graph Export
+	
+	public String toDotString() {
+		return "";
+	}
+	
+	public void toDotFile(String fileName) {
+		
 	}
 }

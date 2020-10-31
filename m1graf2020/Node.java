@@ -30,7 +30,7 @@ public class Node {
     /**
      * Empty constructor of the class Node
      */
-    public void Node() {
+    public Node() {
         int i = 0;
 		while (isIdTaken[i]) {
 			i++;
@@ -45,7 +45,7 @@ public class Node {
      *
      * @param i Identifier of the node
      */
-    public void Node(int i) {
+    public Node(int i) {
 		id = i;
 		isIdTaken[i] = true;
 		name = "";
@@ -57,7 +57,7 @@ public class Node {
      * @param i Identifier of the node
      * @param n Name of the node
      */
-    public void Node(int i, String n) {
+    public Node(int i, String n) {
         id = i;
         name = n;
     }
