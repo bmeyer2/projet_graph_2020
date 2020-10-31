@@ -72,7 +72,13 @@ public class Graf {
 	 * @return Node that matches the given id
      */
 	public Node getNode(int id) {
-		return (nodes.get(id));
+		for (int i=0; i<nbNodes(); i++) {
+			System.out.println(nodes.get(i).getId());
+			if (nodes.get(i).getId() == id) {
+				return nodes.get(i);
+			}
+		}
+		return new Node();
 	}
 	
 	/**
@@ -252,8 +258,8 @@ public class Graf {
 		String g = "";
 		for (int i=0; i<nbNodes(); i++) {
 			g = g + "- " + nodes.get(i).getId() + " :";
-			for (int j=0; j<getSuccessors(i).size(); j++) {
-				g = g + " " + getSuccessors(i).get(j).getId();
+			for (int j=0; j<getSuccessors(nodes.get(i)).size(); j++) {
+				g = g + " " + getSuccessors(nodes.get(i)).get(j).getId();
 			}
 			g = g + "\n";
 		}
