@@ -242,12 +242,17 @@ public class Graf {
 	}
 	
 	// ------ Graph Export
-	
+		
+	/**
+     * toString returns a String representing the map of the graf
+	 *
+	 * @return String representing the map of the graf
+     */
 	public String toString() {
 		String g = "";
 		for (int i=0; i<nbNodes(); i++) {
-			g = g + "- " + i + " :";
-			for (int j=0; j<getSuccessors(i).size()); j++{
+			g = g + "- " + nodes.get(i).getId() + " :";
+			for (int j=0; j<getSuccessors(i).size(); j++) {
 				g = g + " " + getSuccessors(i).get(j).getId();
 			}
 			g = g + "\n";
