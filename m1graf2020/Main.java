@@ -41,6 +41,7 @@ public class Main {
 						else {
 							System.out.println("Graf must be initialized bedore Adding Node.");
 						}
+						System.out.println(graf.toString());
 						break;
 				case 3:
 						if(graf != null) {
@@ -52,6 +53,7 @@ public class Main {
 						else {
 							System.out.println("Graf must be initialized bedore Removing Node.");
 						}
+						System.out.println(graf.toString());
 						break;
 				case 4:
 						
