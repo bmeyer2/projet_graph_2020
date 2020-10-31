@@ -29,6 +29,7 @@ public class Graf {
      */
     public Graf() {
         adjList = new HashMap<Node, List<Node>>();
+		nodes = new ArrayList<Node>();
     }
 
     /**
@@ -241,6 +242,18 @@ public class Graf {
 	}
 	
 	// ------ Graph Export
+	
+	public String toString() {
+		String g = "";
+		for (int i=0; i<nbNodes(); i++) {
+			g = g + "- " + i + " :";
+			for (int j=0; j<getSuccessors(i).size()); j++{
+				g = g + " " + getSuccessors(i).get(j).getId();
+			}
+			g = g + "\n";
+		}
+		return g;
+	}
 	
 	public String toDotString() {
 		return "";
