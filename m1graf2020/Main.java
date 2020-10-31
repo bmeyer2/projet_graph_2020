@@ -6,7 +6,11 @@ public class Main {
 	public static void main(String[] args) {
 		int answer = 1;
 		Scanner scanner = new Scanner(System.in);
-		Graf graf;
+		Graf graf = null;
+		Node n;
+		int id;
+		String name;
+
 		while(answer != 0) {
 			System.out.println("0. Leave the programm");
 			System.out.println("1. Create an empty graph.");
@@ -28,10 +32,26 @@ public class Main {
 						graf = new Graf();
 						break;
 				case 2:
-						
+						if(graf != null) {
+							System.out.println("Give the ID of Node");
+							id = scanner.nextInt();
+							graf.addNode(id);
+							System.out.println("Adding of Node " + id +"...");
+						}
+						else {
+							System.out.println("Graf must be initialized bedore Adding Node.");
+						}
 						break;
 				case 3:
-						
+						if(graf != null) {
+							System.out.println("Give the ID of Node");
+							id = scanner.nextInt();
+							graf.removeNode(id);
+							System.out.println("Removing of Node " + id +"...");
+						}
+						else {
+							System.out.println("Graf must be initialized bedore Removing Node.");
+						}
 						break;
 				case 4:
 						
