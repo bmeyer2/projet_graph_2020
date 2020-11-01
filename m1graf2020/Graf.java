@@ -504,7 +504,7 @@ public class Graf {
 		else {
 			FileOutputStream fout = null;
 			File file = new File(fileName);
-			String content = "digraph finite_state_machine {\nrankdir=LR; size=\"12,8\"node [shape = doublecircle];\n";
+			String content = "digraph finite_state_machine {\nrankdir=LR; size=\"12,8\"node [shape = circle];\n";
 
 			try {
 				file = new File(fileName);
