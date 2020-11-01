@@ -206,15 +206,15 @@ public class Graf {
 	// ------ Degrees
 	
 	public int inDegree(Node n) {
-		return 0;
+		return getInEdges(n).size;
 	}
 	
 	public int outDegree(Node n) {
-		return 0;
+		return getOutEdges(n).size;
 	}
 	
 	public int degree(Node n) {
-		return 0;
+		return inDegree(n) + outDegree(n);
 	}
 	
 	// ------ Graph Representation
