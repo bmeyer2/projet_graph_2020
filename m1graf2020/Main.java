@@ -8,7 +8,7 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		Graf graf = null;
 		Node n;
-		int id;
+		int id, tail, head;
 		String name;
 
 		while(answer != 0) {
@@ -56,10 +56,32 @@ public class Main {
 						System.out.println(graf.toString());
 						break;
 				case 4:
-						
+						if(graf != null) {
+							System.out.println("Give the ID of Tail");
+							tail = scanner.nextInt();
+							System.out.println("Give the ID of Head");
+							head = scanner.nextInt();
+							graf.addEdge(tail,head);
+							System.out.println("Adding of Edge " + tail + " " + head +"...");
+						}
+						else {
+							System.out.println("Graf must be initialized before Adding Node.");
+						}
+						System.out.println(graf.toString());
 						break;
 				case 5:
-						
+						if(graf != null) {
+							System.out.println("Give the ID of Tail");
+							tail = scanner.nextInt();
+							System.out.println("Give the ID of Head");
+							head = scanner.nextInt();
+							graf.removeEdge(tail,head);
+							System.out.println("Removing of Edge " + tail + " " + head +"...");
+						}
+						else {
+							System.out.println("Graf must be initialized before Adding Node.");
+						}
+						System.out.println(graf.toString());	
 						break;
 				case 6:
 						

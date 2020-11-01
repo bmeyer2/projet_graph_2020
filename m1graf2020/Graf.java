@@ -224,6 +224,10 @@ public class Graf {
 		getSuccessors(from).add(to);
 		edges.add(new Edge(from, to));
 	}
+
+	public void addEdge(int from, int to) {
+		addEdge(getNode(from), getNode(to));
+	}
 	
 	/**
      * removeEdge removes an edge between the two given nodes
@@ -240,6 +244,10 @@ public class Graf {
 				}
 			}
 		}
+	}
+
+	public void removeEdge(int from, int to) {
+		removeEdge(getNode(from), getNode(to));
 	}
 	
 	public List<Edge> getOutEdges(Node n) {
