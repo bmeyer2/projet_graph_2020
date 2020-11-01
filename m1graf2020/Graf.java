@@ -503,7 +503,7 @@ public class Graf {
 		}
 		else {
 			FileOutputStream fout = null;
-			File file;
+			File file = new File(fileName);
 			String content = "digraph finite_state_machine {\nrankdir=LR; size=\"12,8\"node [shape = doublecircle];\n";
 
 			try {
@@ -517,6 +517,7 @@ public class Graf {
 				for(int i=0; i<nbEdges(); i++) {
 					content += edges.get(i).getTail().getId() + " -> " + edges.get(i).getHead().getId() + ";\n";
 				}
+				content += "}";
 
 				byte[] bytes = content.getBytes();
 				fout.write(bytes);

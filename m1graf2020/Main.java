@@ -94,6 +94,7 @@ public class Main {
 				case 8:
 						if(graf != null) {
 							System.out.println("Give the name of your file");
+							scanner.nextLine();
 							String fileName = scanner.nextLine();
 							graf.toDotFile(fileName);
 							System.out.println("Exporting the graph to a DOT File...");
