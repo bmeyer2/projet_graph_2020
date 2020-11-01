@@ -18,9 +18,11 @@ public class Graf {
      *
      * adjList : Map of adjacency lists of nodes that represents the graph
      * nodes : List of nodes to allow an easy access to them
+	 * edges : List of edges to allow an easy access to them
      */
     private Map<Node, List<Node>> adjList;
     private List<Node> nodes;
+	private List<Edge> edges;
 
     // ---------- CONSTRUCTORS ----------
 
@@ -30,10 +32,20 @@ public class Graf {
     public Graf() {
         adjList = new HashMap<Node, List<Node>>();
 		nodes = new ArrayList<Node>();
+		edges = new ArrayList<Edge>();
     }
+	
+	/**
+     * Constructor of the class Graf using a Successor Array
+	 *
+	 * @param sa : successor array
+     */
+	public Graf(int... sa) {
+		
+	}
 
     /**
-     * Empty constructor of the class Graf
+     * Constructor of the class Graf
 	 *
 	 * @param map : map of adjacency lists of nodes that represents the graph
      */
@@ -41,6 +53,12 @@ public class Graf {
         adjList = new HashMap<Node,List<Node>>(map);
 		nodes = new ArrayList<Node>();
         nodes.addAll(map.keySet());
+		edges = new ArrayList<Edge>();
+		for (int i=0; i<nbNodes(); i++) {
+			for (int j=0; j<getSuccessors(nodes.get(i)).size(); j++) {
+				edges.add(new Edge(nodes.get(i), getSuccessors(nodes.get(i)).get(j)));
+			}
+		}
     }
 
 	// ---------- METHODS ----------
@@ -73,7 +91,6 @@ public class Graf {
      */
 	public Node getNode(int id) {
 		for (int i=0; i<nbNodes(); i++) {
-			System.out.println(nodes.get(i).getId());
 			if (nodes.get(i).getId() == id) {
 				return nodes.get(i);
 			}
@@ -112,9 +129,14 @@ public class Graf {
 			n.getIsIdTakenArray()[n.getId()] = false;
 			adjList.remove(n);
 			nodes.remove(n);
-			for(int i=0; i<nbNodes(); i++){
+			for(int i=0; i<nbNodes(); i++) {
 				if (getSuccessors(nodes.get(i)).contains(n)) {
 					getSuccessors(nodes.get(i)).remove(n);
+				}
+			}
+			for (int j=0; j<nbEdges(); j++) {
+				if (edges.get(j).getTail().equals(n) || edges.get(j).getHead().equals(n)) {
+					edges.remove(j);
 				}
 			}
 		}
@@ -171,20 +193,52 @@ public class Graf {
 	
 	// ------ Edges
 	
+	/**
+     * nbEdges returns the number of edges in the graph
+	 *
+	 * @return int of the number of edges
+     */
 	public int nbEdges() {
-		return 0;
+		return edges.size();
 	}
 	
+	/**
+     * adjacent returns true if there is an edge between the two given nodes
+	 *
+	 * @param u : first node
+	 * @param v : second node
+	 * @return boolean if there is an edge
+     */
 	public boolean existsEdge(Node u, Node v) {
-		return true;
+		return adjacent(u, v);
 	}
 	
+	/**
+     * addEdge adds an edge between the two given nodes
+	 *
+	 * @param from : tail node
+	 * @param to : head node
+     */
 	public void addEdge(Node from, Node to) {
-		
+		getSuccessors(from).add(to);
+		edges.add(new Edge(from, to));
 	}
 	
+	/**
+     * removeEdge removes an edge between the two given nodes
+	 *
+	 * @param from : tail node
+	 * @param to : head node
+     */
 	public void removeEdge(Node from, Node to) {
-		
+		if (existsEdge(from, to)) {
+			getSuccessors(from).remove(to);
+			for (int i=0; i<nbEdges(); i++) {
+				if (edges.get(i).getTail().equals(from) && edges.get(i).getHead().equals(to)) {
+					edges.remove(i);
+				}
+			}
+		}
 	}
 	
 	public List<Edge> getOutEdges(Node n) {
@@ -199,8 +253,13 @@ public class Graf {
 		return new ArrayList<Edge>();
 	}
 	
+	/**
+     * getAllEdges returns the list of all edges of the graph
+	 *
+	 * @return List of all edges of the graph
+     */
 	public List<Edge> getAllEdges() {
-		return new ArrayList<Edge>();
+		return edges;
 	}
 	
 	// ------ Degrees
@@ -259,7 +318,7 @@ public class Graf {
 		for (int i=0; i<nbNodes(); i++) {
 			g = g + "- " + nodes.get(i).getId() + " :";
 			for (int j=0; j<getSuccessors(nodes.get(i)).size(); j++) {
-				g = g + " " + getSuccessors(nodes.get(i)).get(j).getId();
+				g = g + " " + getSuccessors(nodes.get(i)).get(j).getId(); 
 			}
 			g = g + "\n";
 		}
