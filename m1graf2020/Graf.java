@@ -42,7 +42,30 @@ public class Graf {
 	 * @param sa : successor array
      */
 	public Graf(int... sa) {
-		
+		adjList = new HashMap<Node, List<Node>>();
+		nodes = new ArrayList<Node>();
+		edges = new ArrayList<Edge>();
+		int x = 1;
+		int y = 1;
+		if (sa.length>0) {
+			addNode(new Node(x));
+		}
+		for (int i=0; i<sa.length; i++) {
+			if (sa[i] == 0) {
+				if (i != sa.length-1) {
+					x++;
+					addNode(new Node(x));
+				}
+			}
+		}
+		for (int j=0; j<sa.length; j++) {
+			if (sa[j] != 0) {
+				addEdge(y, sa[j]);
+			}
+			else {
+				y++;
+			}
+		}			
 	}
 
     /**
@@ -75,13 +98,23 @@ public class Graf {
 	}
 	
 	/**
-     * existsNode returns true if the given node is inside the grapf
+     * existsNode returns true if the given node is inside the graph
 	 *
 	 * @param n : node to check if it is inside the graph
 	 * @return boolean if the given node is inside the graph
      */
 	public boolean existsNode(Node n) {
-		return (nodes.contains(n));
+		return nodes.contains(n);
+	}
+	
+	/**
+     * existsNode returns true if the given node id is inside the graph
+	 *
+	 * @param id : node id to check if it is inside the graph
+	 * @return boolean if the given node is inside the graph
+     */
+	public boolean existsNode(int id) {
+		return existsNode(getNode(id));
 	}
 	
 	/**
@@ -225,6 +258,12 @@ public class Graf {
 		edges.add(new Edge(from, to));
 	}
 
+	/**
+     * addEdge adds an edge between the two given nodes id
+	 *
+	 * @param from : tail node id
+	 * @param to : head node id
+     */
 	public void addEdge(int from, int to) {
 		addEdge(getNode(from), getNode(to));
 	}
@@ -246,20 +285,92 @@ public class Graf {
 		}
 	}
 
+	/**
+     * removeEdge removes an edge between the two given nodes id
+	 *
+	 * @param from : tail node id
+	 * @param to : head node id
+     */
 	public void removeEdge(int from, int to) {
 		removeEdge(getNode(from), getNode(to));
 	}
 	
+	/**
+     * getOutEdges gets a List of all out edges of the given node
+	 *
+	 * @param n : given node
+	 * @return List of all out edges
+     */
 	public List<Edge> getOutEdges(Node n) {
-		return new ArrayList<Edge>();
+		List<Edge> e = new ArrayList<Edge>();
+		for (int i=0; i<nbEdges(); i++){
+			if (edges.get(i).getTail().equals(n)) {
+				e.add(edges.get(i));
+			}
+		}
+		return e;
 	}
 	
+	/**
+     * getOutEdges gets a List of all out edges of the given node id
+	 *
+	 * @param id : given node id
+	 * @return List of all out edges
+     */
+	public List<Edge> getOutEdges(int id) {
+		return getOutEdges(getNode(id));
+	}
+	
+	/**
+     * getInEdges gets a List of all in edges of the given node
+	 *
+	 * @param n : given node
+	 * @return List of all in edges
+     */
 	public List<Edge> getInEdges(Node n) {
-		return new ArrayList<Edge>();
+		List<Edge> e = new ArrayList<Edge>();
+		for (int i=0; i<nbEdges(); i++){
+			if (edges.get(i).getHead().equals(n)) {
+				e.add(edges.get(i));
+			}
+		}
+		return e;
 	}
 	
+	/**
+     * getInEdges gets a List of all in edges of the given node id
+	 *
+	 * @param id : given node id
+	 * @return List of all in edges
+     */
+	public List<Edge> getInEdges(int id) {
+		return getInEdges(getNode(id));
+	}
+	
+	/**
+     * getIncidentEdges gets a List of all incident edges of the given node
+	 *
+	 * @param n : given node
+	 * @return List of all incident edges
+     */
 	public List<Edge> getIncidentEdges(Node n) {
-		return new ArrayList<Edge>();
+		List<Edge> e = new ArrayList<Edge>();
+		for (int i=0; i<nbEdges(); i++){
+			if (edges.get(i).getHead().equals(n) || edges.get(i).getTail().equals(n)) {
+				e.add(edges.get(i));
+			}
+		}
+		return e;
+	}
+	
+	/**
+     * getIncidentEdges gets a List of all incident edges of the given node id
+	 *
+	 * @param id : given node id
+	 * @return List of all incident edges
+     */
+	public List<Edge> getIncidentEdges(int id) {
+		return getIncidentEdges(getNode(id));
 	}
 	
 	/**
@@ -273,16 +384,64 @@ public class Graf {
 	
 	// ------ Degrees
 	
+	/**
+     * inDegree returns the in-degree of the given node
+	 *
+	 * @param n : given node
+	 * @return int of the in-degree
+     */
 	public int inDegree(Node n) {
 		return getInEdges(n).size();
 	}
 	
+	/**
+     * inDegree returns the in-degree of the given node id
+	 *
+	 * @param id : given node id
+	 * @return int of the in-degree
+     */
+	public int inDegree(int id) {
+		return inDegree(getNode(id));
+	}
+	
+	/**
+     * outDegree returns the out-degree of the given node
+	 *
+	 * @param n : given node
+	 * @return int of the out-degree
+     */
 	public int outDegree(Node n) {
 		return getOutEdges(n).size();
 	}
 	
+	/**
+     * outDegree returns the out-degree of the given node id
+	 *
+	 * @param id : given node id
+	 * @return int of the out-degree
+     */
+	public int outDegree(int id) {
+		return outDegree(getNode(id));
+	}
+	
+	/**
+     * degree returns the degree of the given node
+	 *
+	 * @param n : given node
+	 * @return int of the degree
+     */
 	public int degree(Node n) {
 		return inDegree(n) + outDegree(n);
+	}
+	
+	/**
+     * degree returns the degree of the given node id
+	 *
+	 * @param id : given node id
+	 * @return int of the degree
+     */
+	public int degree(int id) {
+		return degree(getNode(id));
 	}
 	
 	// ------ Graph Representation
