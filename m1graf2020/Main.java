@@ -39,7 +39,7 @@ public class Main {
 							System.out.println("Adding of Node " + id +"...");
 						}
 						else {
-							System.out.println("Graf must be initialized bedore Adding Node.");
+							System.out.println("Graf must be initialized before Adding Node.");
 						}
 						System.out.println(graf.toString());
 						break;
@@ -51,7 +51,7 @@ public class Main {
 							System.out.println("Removing of Node " + id +"...");
 						}
 						else {
-							System.out.println("Graf must be initialized bedore Removing Node.");
+							System.out.println("Graf must be initialized before Removing Node.");
 						}
 						System.out.println(graf.toString());
 						break;
@@ -68,7 +68,15 @@ public class Main {
 						
 						break;
 				case 8:
-						
+						if(graf != null) {
+							System.out.println("Give the name of your file");
+							String fileName = scanner.nextLine();
+							graf.toDotFile(fileName);
+							System.out.println("Exporting the graph to a DOT File...");
+						}
+						else {
+							System.out.println("Graf must be initialized.");
+						}
 						break;
 				case 9:
 						

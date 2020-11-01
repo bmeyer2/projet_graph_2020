@@ -1,6 +1,7 @@
 package m1graf2020;
 
 import java.util.*;
+import java.io.*;
 
 /**
  * The class Graf codes a graph.
@@ -330,6 +331,45 @@ public class Graf {
 	}
 	
 	public void toDotFile(String fileName) {
-		
+		if(fileName == ""){
+			System.out.println("Error cannot open file.");
+		}
+		else {
+			FileOutputStream fout = null;
+			File file;
+			String content = "digraph finite_state_machine {\nrankdir=LR; size=\"12,8\"node [shape = doublecircle];\n";
+
+			try {
+				file = new File(fileName);
+				fout = new FileOutputStream(file);
+
+				if(!file.exists()) {
+					file.createNewFile();
+				}
+
+				for(int i=0; i<nbEdges(); i++) {
+					content += edges.get(i).getTail().getId() + " -> " + edges.get(i).getHead().getId() + ";\n";
+				}
+
+				byte[] bytes = content.getBytes();
+				fout.write(bytes);
+
+				fout.flush();
+				fout.close();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					if(fout != null) {
+						fout.close();
+					}
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }
