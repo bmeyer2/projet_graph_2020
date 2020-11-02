@@ -10,7 +10,7 @@ import java.util.*;
  * @version 1.0
  */
 
-public class Node {
+public class Node implements Comparable<Node> {
 
     // ATTRIBUTES
 
@@ -100,6 +100,16 @@ public class Node {
      */
     public boolean[] getIsIdTakenArray() {
         return isIdTaken;
+    }
+	
+	/**
+     * Compare the current node with another node
+     *
+     * @param n The node to compare with
+     * @return int for the sort
+     */
+    public int compareTo(Node n) {
+        return id - n.getId();
     }
     
 }

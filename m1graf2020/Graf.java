@@ -21,9 +21,9 @@ public class Graf {
      * nodes : List of nodes to allow an easy access to them
 	 * edges : List of edges to allow an easy access to them
      */
-    private Map<Node, List<Node>> adjList;
-    private List<Node> nodes;
-	private List<Edge> edges;
+    Map<Node, List<Node>> adjList;
+    List<Node> nodes;
+	List<Edge> edges;
 
     // ---------- CONSTRUCTORS ----------
 
@@ -446,18 +446,64 @@ public class Graf {
 	
 	// ------ Graph Representation
 	
-	/*public int[] toSuccessorArray() {
-		
+	/**
+	 * toSuccessorArray returns the successors array of the graph
+	 *
+	 * @return int[] successor array
+	 */
+	public int[] toSuccessorArray() {
+		List<Integer> res = new ArrayList<Integer>();
+		for (int i=0; i<nbNodes(); i++) {
+			for (int j=0; j<getSuccessors(nodes.get(i)).size(); j++) {
+				res.add(getSuccessors(nodes.get(i)).get(j).getId());
+			}
+			res.add(0);
+		}
+		int[] r = new int[res.size()];
+		for (int k=0; k<res.size(); k++) {
+			r[k] = res.get(k);
+		}
+		return r;
 	}
 	
+	/**
+	 * toAdjMatrix returns the adjacency matrix of the graph
+	 *
+	 * @return int[][] adjacency matrix
+	 */
 	public int[][] toAdjMatrix() {
-		
-	}*/
+		int[][] res = new int[nbNodes()][nbNodes()];
+		int h = 0;
+		int t = 0;
+		for (int i=0; i<nbNodes(); i++) {
+			for (int j=0; j<nbNodes(); j++) {
+				res[i][j] = 0;
+			}
+		}
+		for (int k=0; k<nbEdges(); k++) {
+			t = edges.get(k).getTail().getId();
+			h = edges.get(k).getHead().getId();
+			res[t][h] = 1;
+		}
+		return res;
+	}
 	
 	// ------ Graph Transformation
 	
+	/**
+	 * getReverse returns the reverse graph
+	 *
+	 * @return Graf reverse graph
+	 */
 	public Graf getReverse() {
-		return new Graf();
+		Graf r = new Graf();
+		for (int i=0; i<nbNodes(); i++) {
+			r.addNode(nodes.get(i).getId());
+		}
+		for (int j=0; j<nbEdges(); j++) {
+			r.addEdge(edges.get(j).getHead(), edges.get(j).getTail());
+		}
+		return r;
 	}
 	
 	public Graf getTransitiveClosure() {
@@ -494,7 +540,17 @@ public class Graf {
 	}
 	
 	public String toDotString() {
-		return "";
+		String content = "digraph finite_state_machine {\nrankdir=LR; size=\"12,8\"node [shape = circle];\n";
+		for(int i=0; i<nbEdges(); i++) {
+			content += edges.get(i).getTail().getId() + " -> " + edges.get(i).getHead().getId() + ";\n";
+		}
+		for(int j=0; j<nbNodes(); j++) {
+			if (degree(nodes.get(j)) == 0) {
+				content += nodes.get(j).getId() + ";\n";
+			}
+		}
+		content += "}";
+		return content;
 	}
 	
 	public void toDotFile(String fileName) {
@@ -505,7 +561,6 @@ public class Graf {
 			FileOutputStream fout = null;
 			File file = new File(fileName);
 			String content = "digraph finite_state_machine {\nrankdir=LR; size=\"12,8\"node [shape = circle];\n";
-
 			try {
 				file = new File(fileName);
 				fout = new FileOutputStream(file);
@@ -516,6 +571,11 @@ public class Graf {
 
 				for(int i=0; i<nbEdges(); i++) {
 					content += edges.get(i).getTail().getId() + " -> " + edges.get(i).getHead().getId() + ";\n";
+				}
+				for(int j=0; j<nbNodes(); j++) {
+					if (degree(nodes.get(j)) == 0) {
+						content += nodes.get(j).getId() + ";\n";
+					}
 				}
 				content += "}";
 

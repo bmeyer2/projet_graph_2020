@@ -2,6 +2,14 @@ package m1graf2020;
 
 import java.util.*;
 
+/**
+ * The class Main codes the menu that uses our graf tools
+ *
+ * @author Deniset Nicolas
+ * @author Meyer Bastien
+ * @version 1.0
+ */
+
 public class Main {
 	public static void main(String[] args) {
 		int answer = 1;

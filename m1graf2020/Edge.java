@@ -9,7 +9,7 @@ import java.util.*;
  * @author Meyer Bastien
  * @version 1.0
  */
-public class Edge {
+public class Edge implements Comparable<Edge> {
 
 	// ATTRIBUTES
 
@@ -106,6 +106,36 @@ public class Edge {
      */
     public Node getHead() {
         return head;
+    }
+	
+	/**
+     * Compare the current edge with another edge
+     *
+     * @param e The edge to compare with
+     * @return int for the sort
+     */
+	public int compareTo(Edge e) { 
+        int t = e.getTail().getId();
+        int h = e.getHead().getId();
+        int t2 = tail.getId();
+        int h2 = head.getId();
+        if (t2 < t) {
+            return -1;
+        } else {
+            if (t2 > t) {
+                return 1;
+            } else {
+                if (h2 < h) {
+                    return -1;
+                } else {
+                    if (h2 > h) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }
+            }
+        }
     }
 
 }
