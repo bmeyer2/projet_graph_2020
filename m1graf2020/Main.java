@@ -20,19 +20,29 @@ public class Main {
 		String name;
 
 		while(answer != 0) {
-			System.out.println("0. Leave the programm");
-			System.out.println("1. Create an empty graph.");
-			System.out.println("2. Add a node.");
-			System.out.println("3. Remove a node.");
-			System.out.println("4. Add an edge.");
-			System.out.println("5. Remove an edge.");
-			System.out.println("6. Show the graph in the DOT format.");
-			System.out.println("7. Read the graph from a DOT file.");
-			System.out.println("8. Export the graph to a DOT file.");
-			System.out.println("9. Reverse the graph.");
-			System.out.println("10. Comptute the transitive close of the graph");
-			System.out.println("11. Traverse the graph in DSF");
-			System.out.println("12. Traverse the graph in BSF");
+            System.out.println("---------------- MENU ---------------");
+            System.out.println("1. Create an empty graph or reset the current one");
+            System.out.println("2. Add a node");
+            System.out.println("3. Remove a node");
+            System.out.println("4. Add an edge");
+            System.out.println("5. Remove an edge");
+            System.out.println("6. Get the list of all nodes");
+            System.out.println("7. Get the list of successors of a node");
+            System.out.println("8. Get the list of all edges");
+            System.out.println("9. Get the list of all out-edges of a node");
+            System.out.println("10. Get the list of all in-edges of a node");
+            System.out.println("11. Get the list of all edges incident to a node");
+            System.out.println("12. Get a representation of the graph as an SA (successor array)");
+            System.out.println("13. Get a representation of the graph as an adjacency matrix");
+            System.out.println("14. Show the graph in the DOT format");
+            System.out.println("15. Read the graph from a DOT file");
+            System.out.println("16. Export the graph to a DOT file");
+            System.out.println("17. Reverse the graph");
+            System.out.println("18. Compute the transitive closure of the graph");
+            System.out.println("19. Traverse the graph in DSF");
+            System.out.println("20. Traverse the graph in BSF");
+            System.out.println("0. Exit");
+            System.out.println("-------------------------------------");
 			answer = scanner.nextInt();
 			
 			switch(answer){
