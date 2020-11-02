@@ -65,7 +65,7 @@ public class Graf {
             else {
                 y++;
             }
-        }            
+        }
     }
 
     /**
@@ -77,6 +77,7 @@ public class Graf {
         adjList = new HashMap<Node,List<Node>>(map);
         nodes = new ArrayList<Node>();
         nodes.addAll(map.keySet());
+        Collections.sort(nodes);
         edges = new ArrayList<Edge>();
         for (int i=0; i<nbNodes(); i++) {
             for (int j=0; j<getSuccessors(nodes.get(i)).size(); j++) {
@@ -170,8 +171,6 @@ public class Graf {
     public void removeNode(Node n) {
         if (existsNode(n)) {
             n.getIsIdTakenArray()[n.getId()] = false;
-            adjList.remove(n);
-            nodes.remove(n);
             for(int i=0; i<nbNodes(); i++) {
                 if (getSuccessors(nodes.get(i)).contains(n)) {
                     getSuccessors(nodes.get(i)).remove(n);
@@ -182,6 +181,8 @@ public class Graf {
                     edges.remove(j);
                 }
             }
+            adjList.remove(n);
+            nodes.remove(n);
         }
     }
     
@@ -250,7 +251,9 @@ public class Graf {
      * @return List of all nodes of the graph
      */
     public List<Node> getAllNodes() {
-        return nodes;
+        ArrayList<Node> n = new ArrayList<Node>();
+        n.addAll(nodes);
+        return n;
     }
     
     // ------ Edges
@@ -298,7 +301,6 @@ public class Graf {
     public void addEdge(Node from, Node to) {
         getSuccessors(from).add(to);
         edges.add(new Edge(from, to));
-        Collections.sort(edges);
         Collections.sort(getSuccessors(from));
     }
 
@@ -576,7 +578,7 @@ public class Graf {
         for (int k=0; k<nbEdges(); k++) {
             t = edges.get(k).getTail().getId();
             h = edges.get(k).getHead().getId();
-            res[t][h] = 1;
+            res[t][h]++;
         }
         return res;
     }
@@ -600,7 +602,8 @@ public class Graf {
     }
     
     public Graf getTransitiveClosure() {
-        return new Graf();
+        Graf t = new Graf(adjList);
+        return t;
     }
     
     // ------ Graph Traversal
@@ -648,7 +651,7 @@ public class Graf {
             }
             content += ";\n";
         }
-        content += "}";
+        content += "}\n";
         return content;
     }
     
@@ -678,7 +681,7 @@ public class Graf {
                     }
                     content += ";\n";
                 }
-                content += "}";        
+                content += "}\n";        
                 
                 byte[] bytes = content.getBytes();
                 fout.write(bytes);
