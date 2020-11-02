@@ -1,6 +1,7 @@
 package m1graf2020;
 
 import java.util.*;
+import java.io.*;
 
 /**
  * The class Main codes the menu that uses our graf tools
@@ -13,11 +14,16 @@ import java.util.*;
 public class Main {
 	public static void main(String[] args) {
 		int answer = 1;
+		int id, tail, head;
+		int [] successorArray;
+		int [][] adjMatrix;
+		String name, command;
+		Process process;
 		Scanner scanner = new Scanner(System.in);
 		Graf graf = null;
 		Node n;
-		int id, tail, head;
-		String name;
+		List<Node> nodesList;
+		List<Edge> edgesList;
 
 		while(answer != 0) {
 			System.out.println("---------------- MENU ---------------");
@@ -49,7 +55,6 @@ public class Main {
 				case 1:
 						int[] x = {2,4,0,0,6,0,2,3,5,8,0,0,4,7,0,3,0,7,0};
 						graf = new Graf(x);
-						System.out.println(graf.toString());
 						break;
 				case 2:
 						if(graf != null) {
@@ -61,7 +66,6 @@ public class Main {
 						else {
 							System.out.println("Graf must be initialized before Adding Node.");
 						}
-						System.out.println(graf.toString());
 						break;
 				case 3:
 						if(graf != null) {
@@ -73,7 +77,6 @@ public class Main {
 						else {
 							System.out.println("Graf must be initialized before Removing Node.");
 						}
-						System.out.println(graf.toString());
 						break;
 				case 4:
 						if(graf != null) {
@@ -87,7 +90,6 @@ public class Main {
 						else {
 							System.out.println("Graf must be initialized before Adding Node.");
 						}
-						System.out.println(graf.toString());
 						break;
 				case 5:
 						if(graf != null) {
@@ -100,28 +102,156 @@ public class Main {
 						}
 						else {
 							System.out.println("Graf must be initialized before Adding Node.");
-						}
-						System.out.println(graf.toString());	
+						}	
 						break;
 				case 6:
-						
+						if(graf != null) {
+							nodesList = graf.getAllNodes();
+							System.out.println("List of all Nodes :");
+							for(int i=0; i<nodesList.size(); i++) {
+								System.out.println(nodesList.get(i));
+							}
+						}
+						else {
+							System.out.println("Graf must be initialized before Adding Node.");
+						}	
 						break;
 				case 7:
-						
+						if(graf != null) {
+							System.out.println("Give the ID of Node");
+							id = scanner.nextInt();
+							System.out.println("List of successors of node " + id + ":");
+							nodesList = graf.getSuccessors(id);
+							for(int i=0; i<nodesList.size(); i++) {
+								System.out.println(nodesList.get(i));
+							}
+						}
+						else {
+							System.out.println("Graf must be initialized before Adding Node.");
+						}
 						break;
 				case 8:
+						if(graf != null) {
+							edgesList = graf.getAllEdges();
+							System.out.println("List of all Edges :");
+							for(int i=0; i<edgesList.size(); i++) {
+								System.out.println(edgesList.get(i));
+							}
+						}
+						else {
+							System.out.println("Graf must be initialized before Adding Node.");
+						}	
+						break;
+				case 9:
+						if(graf != null) {
+							System.out.println("Give the ID of Node");
+							id = scanner.nextInt();
+							System.out.println("List of all out-edges of node " + id + ":");
+							edgesList = graf.getOutEdges(id);
+							for(int i=0; i<edgesList.size(); i++) {
+								System.out.println(edgesList.get(i));
+							}
+						}
+						else {
+							System.out.println("Graf must be initialized before Adding Node.");
+						}
+						break;
+				case 10:
+						if(graf != null) {
+							System.out.println("Give the ID of Node");
+							id = scanner.nextInt();
+							System.out.println("List of all in-edges of node " + id + ":");
+							edgesList = graf.getInEdges(id);
+							for(int i=0; i<edgesList.size(); i++) {
+								System.out.println(edgesList.get(i));
+							}
+						}
+						else {
+							System.out.println("Graf must be initialized before Adding Node.");
+						}
+						break;
+				case 11:
+						if(graf != null) {
+							System.out.println("Give the ID of Node");
+							id = scanner.nextInt();
+							System.out.println("List of all  edges incident of node " + id + ":");
+							edgesList = graf.getIncidentEdges(id);
+							for(int i=0; i<edgesList.size(); i++) {
+								System.out.println(edgesList.get(i));
+							}
+						}
+						else {
+							System.out.println("Graf must be initialized before Adding Node.");
+						}
+						break;
+				case 12:
+						if(graf != null) {
+							successorArray = graf.toSuccessorArray();
+							System.out.println("Representation of the graph as an SA (successor array)");
+							System.out.print("[");
+							for(int i=0; i<successorArray.length; i++) {
+								if(i == successorArray.length - 1) {
+									System.out.println(successorArray[i] + "]");
+								}
+								else {
+									System.out.print(successorArray[i] + ",");
+								}
+							}
+						}
+						else {
+							System.out.println("Graf must be initialized before Adding Node.");
+						}
+						break;
+				case 13:
+						if(graf != null) {
+							adjMatrix = graf.toAdjMatrix();
+							System.out.println("Representation of the graph as an adjacency matrix");
+							for(int i=0; i<adjMatrix.length; i++) {
+								System.out.print("[");
+								for(int j=0; j<adjMatrix[0].length; j++) {
+									System.out.print(adjMatrix[i][j] + " ");
+								}
+								System.out.println("]");
+							}
+						}
+						else {
+							System.out.println("Graf must be initialized before Adding Node.");
+						}
+						break;
+				case 14:
+						if(graf != null) {
+							System.out.println("Showing graph in the DOT format...");
+							System.out.println(graf.toDotString());
+						}
+						else {
+							System.out.println("Graf must be initialized before Adding Node.");
+						}
+						break;
+				case 15:
+						
+						break;
+				case 16:
 						if(graf != null) {
 							System.out.println("Give the name of your file");
 							scanner.nextLine();
 							String fileName = scanner.nextLine();
-							graf.toDotFile(fileName);
 							System.out.println("Exporting the graph to a DOT File...");
+							graf.toDotFile(fileName);
+							fileName = fileName.substring(0, fileName.indexOf('.'));
+							command = "dot -Tpdf " +  fileName + ".dot -o " + fileName + ".pdf";
+							try {
+								process = Runtime.getRuntime().exec(command);
+							}
+							catch (IOException e) {
+								e.printStackTrace();
+							}
+							System.out.println("Done.");
 						}
 						else {
 							System.out.println("Graf must be initialized.");
 						}
 						break;
-				case 9:
+				case 17:
 						if(graf != null) {
 							System.out.println("Computing the reverse of the graph... ");
 							graf = graf.getReverse();
@@ -131,7 +261,7 @@ public class Main {
 							System.out.println("Graf must be initialized.");
 						}
 						break;
-				case 10:
+				case 18:
 						if(graf != null) {
 							System.out.println("Computing the transitive closure of the graph... ");
 							graf = graf.getTransitiveClosure();
@@ -141,49 +271,31 @@ public class Main {
 							System.out.println("Graf must be initialized.");
 						}
 						break;
-				case 11:
+				case 19:
 						if(graf != null) {
 							System.out.println("Traversing the graph in DSF... ");
-							graf = graf.getReverse();
+							nodesList = graf.getDFS();
+							for(int i=0; i<nodesList.size(); i++) {
+								System.out.println(nodesList.get(i));
+							}
 							System.out.println("Done.");
 						}
 						else {
 							System.out.println("Graf must be initialized.");
 						}
-						break;
-				case 12:
-						if(graf != null) {
-							System.out.println("Traversing the graph in BSF... ");
-							graf = graf.getReverse();
-							System.out.println("Done.");
-						}
-						else {
-							System.out.println("Graf must be initialized.");
-						}
-						break;
-				case 13:
-						
-						break;
-				case 14:
-						
-						break;
-				case 15:
-						
-						break;
-				case 16:
-						
-						break;
-				case 17:
-						
-						break;
-				case 18:
-						
-						break;
-				case 19:
-						
 						break;
 				case 20:
-						
+						if(graf != null) {
+							System.out.println("Traversing the graph in BSF... ");
+							nodesList = graf.getBFS();
+							for(int i=0; i<nodesList.size(); i++) {
+								System.out.println(nodesList.get(i));
+							}
+							System.out.println("Done.");
+						}
+						else {
+							System.out.println("Graf must be initialized.");
+						}
 						break;
 				default:
 			}
