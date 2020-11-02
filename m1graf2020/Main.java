@@ -5,8 +5,8 @@ import java.util.*;
 /**
  * The class Main codes the menu that uses our graf tools
  *
- * @author DENISET Nicolas
- * @author MEYER Bastien
+ * @author Deniset Nicolas
+ * @author Meyer Bastien
  * @version 1.0
  */
 
@@ -112,16 +112,44 @@ public class Main {
 						}
 						break;
 				case 9:
-						
+						if(graf != null) {
+							System.out.println("Computing the reverse of the graph... ");
+							graf = graf.getReverse();
+							System.out.println("Done.");
+						}
+						else {
+							System.out.println("Graf must be initialized.");
+						}
 						break;
 				case 10:
-						
+						if(graf != null) {
+							System.out.println("Computing the transitive closure of the graph... ");
+							graf = graf.getTransitiveClosure();
+							System.out.println("Done.");
+						}
+						else {
+							System.out.println("Graf must be initialized.");
+						}
 						break;
 				case 11:
-						
+						if(graf != null) {
+							System.out.println("Traversing the graph in DSF... ");
+							graf = graf.getReverse();
+							System.out.println("Done.");
+						}
+						else {
+							System.out.println("Graf must be initialized.");
+						}
 						break;
 				case 12:
-						
+						if(graf != null) {
+							System.out.println("Traversing the graph in BSF... ");
+							graf = graf.getReverse();
+							System.out.println("Done.");
+						}
+						else {
+							System.out.println("Graf must be initialized.");
+						}
 						break;
 				default:
 			}
