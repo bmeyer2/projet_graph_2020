@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 
 /**
- * The class Graf codes a graph.
+ * The class Graf codes a graph
  *
  * @author Deniset Nicolas
  * @author Meyer Bastien

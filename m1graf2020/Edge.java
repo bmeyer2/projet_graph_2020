@@ -3,7 +3,7 @@ package m1graf2020;
 import java.util.*;
 
 /**
- * The class Edge codes an edge of a graph.
+ * The class Edge codes an edge of a graph
  *
  * @author Deniset Nicolas
  * @author Meyer Bastien
@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class Edge implements Comparable<Edge> {
 
-	// ATTRIBUTES
+    // ATTRIBUTES
 
     /*
      * Attributes of the class Edge.java
@@ -24,7 +24,7 @@ public class Edge implements Comparable<Edge> {
     private Node head;
 	private int weight;
 
-    // CONSTRUCTORS
+	// CONSTRUCTORS
 
     /**
      * Empty constructor of the class Edge

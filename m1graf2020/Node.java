@@ -3,7 +3,7 @@ package m1graf2020;
 import java.util.*;
 
 /**
- * The class Node codes a node of the graph.
+ * The class Node codes a node of the graph
  *
  * @author Deniset Nicolas
  * @author Meyer Bastien
