@@ -590,13 +590,11 @@ public class Graf {
      */
     public Graf getReverse() {
         Graf r = new Graf();
-        System.out.println(this);
         for (int i=0; i<nbNodes(); i++) {
             r.addNode(nodes.get(i).getId());
         }
-        System.out.println(r);
         for (int j=0; j<nbEdges(); j++) {
-            r.addEdge(edges.get(j));
+            r.addEdge(edges.get(j).getHead().getId(), edges.get(j).getTail().getId());
         }
         return r;
     }

@@ -72,7 +72,7 @@ public class Node implements Comparable<Node> {
      * @return boolean stating if the two nodes are equals
      */
     public boolean equals(Node node) {
-        return (this.id == node.id);
+        return (this.id == node.getId());
     }
 
     /**
@@ -82,7 +82,7 @@ public class Node implements Comparable<Node> {
      */
     @Override
     public int hashCode() {
-        return (this.id+1)*5;
+        return this.id;
     }
 
     /**
