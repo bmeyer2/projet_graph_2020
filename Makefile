@@ -14,21 +14,27 @@ CLASSES = \
 		$(SRC)/Node.java \
 		$(SRC)/Graf.java \
 		$(SRC)/Edge.java \
+        TestGrafPW2.java \
 		$(SRC)/Main.java
 
 all: main
 
 main: $(CLASSES)
 	@echo "~~~ Building ~~~"
-	$(JC) $(JFLAGS) $(SRC)/*.java
+	$(JC) $(JFLAGS) $(SRC)/*.java TestGrafPW2.java
 
 exec: 
 	@echo "~~~ Starting ~~~"
 	java $(SRC).Main
-
+    
+test: 
+	@echo "~~~ Testing ~~~"
+	java TestGrafPW2
+    
 clean:
 	@echo "~~~ Cleaning ~~~" 
 	rm -f $(SRC)/*.class
+	rm -f *.class
 	rm -rf Javadoc
 
 mrproper: clean
