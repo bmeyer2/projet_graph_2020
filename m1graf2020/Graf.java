@@ -381,7 +381,7 @@ public class Graf {
 	public List<Edge> getOutEdges(Node n) {
 		List<Edge> e = new ArrayList<Edge>();
 		for (int i=0; i<nbEdges(); i++){
-			if (edges.get(i).getTail().equals(n)) {
+			if (edges.get(i).getTail().getId() == n.getId()) {
 				e.add(edges.get(i));
 			}
 		}
@@ -567,21 +567,21 @@ public class Graf {
 	 * @return int[][] adjacency matrix
 	 */
 	public int[][] toAdjMatrix() {
-		int[][] res = new int[nbNodes()][nbNodes()];
-		int h = 0;
-		int t = 0;
-		for (int i=0; i<nbNodes(); i++) {
-			for (int j=0; j<nbNodes(); j++) {
-				res[i][j] = 0;
-			}
-		}
-		for (int k=0; k<nbEdges(); k++) {
-			t = edges.get(k).getTail().getId();
-			h = edges.get(k).getHead().getId();
-			res[t][h]++;
-		}
-		return res;
-	}
+        int[][] res = new int[nbNodes()][nbNodes()];
+        int h = 0;
+        int t = 0;
+        for (int i=0; i<nbNodes(); i++) {
+            for (int j=0; j<nbNodes(); j++) {
+                res[i][j] = 0;
+            }
+        }
+        for (int k=0; k<nbEdges(); k++) {
+            t = nodes.indexOf(edges.get(k).getTail());
+            h = nodes.indexOf(edges.get(k).getHead());
+            res[t][h]++;
+        }
+        return res;
+    }
 	
 	// ------ Graph Transformation
 	
@@ -601,20 +601,145 @@ public class Graf {
 		return r;
 	}
 	
+	/**
+	 * getTransitiveClosure returns the transitive closure of the graph
+	 *
+	 * @return Graf transitive closure of the graph graph
+	 */
 	public Graf getTransitiveClosure() {
 		Graf t = new Graf(adjList);
+		List<Node> listNode = t.getAllNodes();
+		for (Node n : listNode) {
+			List<Edge> cOutEdges = getOutEdges(n);
+			List<Node> visited = new ArrayList<Node>();
+			for (Edge e : cOutEdges) {
+				t = recTransitiveClosure(n, e.getHead(), t, visited);
+			}
+		}					
+		return t;
+	}
+	
+	/**
+	 * recTransitiveClosure is the recursive call for getTransitiveClosure
+	 *
+	 * @param from : previous node
+	 * @param current : actual node
+	 * @param t : transitive closure of the graph
+	 * @param visited : List of visited nodes
+	 * @return Graf transitive closure of the graph graph
+	 */
+	public Graf recTransitiveClosure(Node from, Node current, Graf t, List<Node> visited) {
+		if ((current.getId() == from.getId()) || visited.contains(current)) {
+			return t;
+		}
+		visited.add(current);
+		if (getOutEdges(current).size() == 0) {
+			return t;
+		}
+		List<Edge> cOutEdges = t.getOutEdges(current);
+		for (Edge e : cOutEdges) {
+			if (from.getId() != e.getHead().getId()) {
+				if (!(t.existsEdge(from, e.getHead()))) {
+					t.addEdge(from, e.getHead());
+				}
+			}
+			t = recTransitiveClosure(current, e.getHead(), t, visited);
+		}
 		return t;
 	}
 	
 	// ------ Graph Traversal
 	
+	/**
+     * getDFS returns the DFS of the current graf
+     *
+     * @return the DFS of the graf
+     */
 	public List<Node> getDFS() {
-		return new ArrayList<Node>();
-	}
+		Node first = getAllNodes().get(0);
+        List<Node> res = new ArrayList<Node>();
+        res.add(first);
+        List<Edge> currEdge = new ArrayList<Edge>();
+        currEdge = getOutEdges(first);
+        for (Edge e : currEdge) {
+            if (res.contains(e.getHead())) {
+                continue;
+            }
+            res = getDFSRec(res, e.getHead());
+        }
+        return res;
+    }
+
+    /**
+     * getDFSRec is the recursive call for getDFS
+     *
+     * @param currList : list to complete
+     * @param currNode : start point of the DFS
+     * @return completed list of the DFS
+     */
+    public List<Node> getDFSRec(List<Node> currList, Node currNode) {
+        currList.add(currNode);
+        List<Edge> currEdge = new ArrayList<Edge>();
+        currEdge = this.getOutEdges(currNode);
+        for (Edge e : currEdge) {
+            if (currList.contains(e.getHead())) {
+                continue;
+            }
+            currList = getDFSRec(currList, e.getHead());
+        }
+        return currList;
+    }
 	
-	public List<Node> getBFS() {
-		return new ArrayList<Node>();
-	}
+	/**
+     * getDFS returns the BFS of the current graf
+     *
+     * @return the BFS of the graf
+     */
+    public List<Node> getBFS() {
+        Node firstNode = this.getAllNodes().get(0);
+        List<Node> res = new ArrayList<Node>();
+        res.add(firstNode);
+        List<Edge> currEdge = new ArrayList<Edge>();
+        currEdge = this.getOutEdges(firstNode);
+        for (Edge e : currEdge) {
+            if (res.contains(e.getHead())) {
+                continue;
+            }
+            res.add(e.getHead());
+        }
+        for (Edge e : currEdge) {
+            if (res.contains(e.getHead())) {
+                continue;
+            }
+            res = getBFSRec(res, e.getHead());
+        }
+        return res;
+    }
+
+    /**
+     * getBFSRec is the recursive call for getBFS
+     *
+     * @param currList : list to complete
+     * @param currNode : start point of the BFS
+     * @return completed list of the BFS
+     */
+    public List<Node> getBFSRec(List<Node> currList, Node currNode) {
+        List<Edge> currEdge = new ArrayList<Edge>();
+        currEdge = this.getOutEdges(currNode);
+        for (Edge e : currEdge) {
+            if (currList.contains(e.getHead())) {
+                continue;
+            }
+            currList.add(e.getHead());
+        }
+        for (Edge e : currEdge) {
+            if (currList.contains(e.getHead())) {
+                continue;
+            }
+            currList = getDFSRec(currList, e.getHead());
+        }
+        return currList;
+    }
 	
 	// ------ Graph Export
 		
