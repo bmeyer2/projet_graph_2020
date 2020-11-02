@@ -5,8 +5,8 @@ import java.util.*;
 /**
  * The class Main codes the menu that uses our graf tools
  *
- * @author Deniset Nicolas
- * @author Meyer Bastien
+ * @author DENISET Nicolas
+ * @author MEYER Bastien
  * @version 1.0
  */
 

@@ -5,8 +5,8 @@ import java.util.*;
 /**
  * The class Edge codes an edge of a graph
  *
- * @author Deniset Nicolas
- * @author Meyer Bastien
+ * @author DENISET Nicolas
+ * @author MEYER Bastien
  * @version 1.0
  */
 public class Edge implements Comparable<Edge> {
@@ -18,7 +18,7 @@ public class Edge implements Comparable<Edge> {
      *
      * tail : tail node of the edge
      * head : head node of the edge
-    * weight : [optionnal] weight of the edge
+     * weight : [optionnal] weight of the edge
      */
     private Node tail;
     private Node head;
@@ -58,6 +58,17 @@ public class Edge implements Comparable<Edge> {
         tail = t;
         head = h;
         weight = w;
+    }
+    
+    /**
+     * Constructor of the class Edge with node id
+     *
+     * @param t tail node id of the edge
+     * @param h head node id of the edge
+     */
+    public Edge(int t, int h) {
+        tail = new Node(t);
+        head = new Node(h);
     }
     
     // METHODS
@@ -136,6 +147,16 @@ public class Edge implements Comparable<Edge> {
                 }
             }
         }
+    }
+    
+    /**
+     * Override of the toString method
+     *
+     * @return String of the edge content
+     */
+    @Override
+    public String toString() {
+        return "(" + tail.getId() + ")->(" + head.getId() + ")";
     }
 
 }

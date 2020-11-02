@@ -5,8 +5,8 @@ import java.util.*;
 /**
  * The class Node codes a node of the graph
  *
- * @author Deniset Nicolas
- * @author Meyer Bastien
+ * @author DENISET Nicolas
+ * @author MEYER Bastien
  * @version 1.0
  */
 
@@ -80,6 +80,7 @@ public class Node implements Comparable<Node> {
      *
      * @return int hash code of the node
      */
+    @Override
     public int hashCode() {
         return (this.id+1)*5;
     }
@@ -108,8 +109,18 @@ public class Node implements Comparable<Node> {
      * @param n The node to compare with
      * @return int for the sort
      */
+    @Override
     public int compareTo(Node n) {
         return id - n.getId();
     }
     
+    /**
+     * Override of the toString method
+     *
+     * @return String of the node content
+     */
+    @Override
+    public String toString() {
+        return "(" + id + ")";
+    }
 }

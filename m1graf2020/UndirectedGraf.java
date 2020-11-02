@@ -6,8 +6,8 @@ import java.io.*;
 /**
  * The class UndirectedGraf codes an undirected graf
  *
- * @author Deniset Nicolas
- * @author Meyer Bastien
+ * @author DENISET Nicolas
+ * @author MEYER Bastien
  * @version 1.0
  */
 

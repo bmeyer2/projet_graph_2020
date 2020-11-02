@@ -6,8 +6,8 @@ import java.io.*;
 /**
  * The class Graf codes a graph
  *
- * @author Deniset Nicolas
- * @author Meyer Bastien
+ * @author DENISET Nicolas
+ * @author MEYER Bastien
  * @version 1.0
  */
 public class Graf {
@@ -104,7 +104,12 @@ public class Graf {
      * @return boolean if the given node is inside the graph
      */
     public boolean existsNode(Node n) {
-        return nodes.contains(n);
+        for (int i=0; i<nbNodes(); i++) {
+            if (nodes.get(i).getId() == n.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
@@ -114,7 +119,10 @@ public class Graf {
      * @return boolean if the given node is inside the graph
      */
     public boolean existsNode(int id) {
-        return existsNode(getNode(id));
+        if (getNode(id) != null) {
+            return existsNode(getNode(id));
+        }
+        return false;
     }
     
     /**
@@ -129,7 +137,7 @@ public class Graf {
                 return nodes.get(i);
             }
         }
-        return new Node();
+        return null;
     }
     
     /**
@@ -142,6 +150,7 @@ public class Graf {
             adjList.put(n, new ArrayList<Node>());
             nodes.add(n);
         }
+        Collections.sort(nodes);
     }
     
     /**
@@ -182,7 +191,9 @@ public class Graf {
      * @param id : id of the Node to remove
      */
     public void removeNode(int id) {
-        removeNode(getNode(id));
+        if (getNode(id) != null) {
+            removeNode(getNode(id));
+        }
     }
     
     /**
@@ -202,7 +213,10 @@ public class Graf {
      * @return List of the successors
      */
     public List<Node> getSuccessors(int id) {
-        return getSuccessors(getNode(id));
+        if (getNode(id) != null) {
+            return getSuccessors(getNode(id));
+        }
+        return null;
     }
     
     /**
@@ -214,6 +228,20 @@ public class Graf {
      */
     public boolean adjacent(Node u, Node v) {
         return (getSuccessors(u).contains(v) || getSuccessors(v).contains(u));
+    }
+    
+    /**
+     * adjacent returns true if the given nodes are adjacents
+     *
+     * @param id1 : first node id
+     * @param id2 : second node id
+     * @return boolean if the nodes are adjacents
+     */
+    public boolean adjacent(int id1, int id2) {
+        if ((getNode(id1) != null) && (getNode(id2) != null)) {
+            return adjacent(getNode(id1), getNode(id2));
+        }
+        return false;
     }
     
     /**
@@ -237,7 +265,7 @@ public class Graf {
     }
     
     /**
-     * adjacent returns true if there is an edge between the two given nodes
+     * existsEdge returns true if there is an edge between the two given nodes
      *
      * @param u : first node
      * @param v : second node
@@ -245,6 +273,20 @@ public class Graf {
      */
     public boolean existsEdge(Node u, Node v) {
         return adjacent(u, v);
+    }
+    
+    /**
+     * existsEdge returns true if there is an edge between the two given nodes id
+     *
+     * @param id1 : first node id
+     * @param id2 : second node id
+     * @return boolean if there is an edge
+     */
+    public boolean existsEdge(int id1, int id2) {
+        if ((getNode(id1) != null) && (getNode(id2) != null)) {
+            return existsEdge(getNode(id1), getNode(id2));
+        }
+        return false;
     }
     
     /**
@@ -256,6 +298,8 @@ public class Graf {
     public void addEdge(Node from, Node to) {
         getSuccessors(from).add(to);
         edges.add(new Edge(from, to));
+        Collections.sort(edges);
+        Collections.sort(getSuccessors(from));
     }
 
     /**
@@ -265,7 +309,36 @@ public class Graf {
      * @param to : head node id
      */
     public void addEdge(int from, int to) {
+        if (getNode(from) == null) {
+            addNode(from);
+        }
+        if (getNode(to) == null) {
+            addNode(to);
+        }
         addEdge(getNode(from), getNode(to));
+    }
+    
+    /**
+     * addEdge adds the given edge in the graph
+     *
+     * @param e : given edge
+     */
+    public void addEdge(Edge e) {
+        Node from = e.getTail();
+        Node to = e.getHead();
+        if (!existsNode(from)) {
+            addNode(from);
+        }
+        else {
+            from = getNode(from.getId());
+        }
+        if (!existsNode(to)) {
+            addNode(to);
+        }
+        else {
+            to = getNode(to.getId());
+        }
+        addEdge(from,to);
     }
     
     /**
@@ -292,7 +365,9 @@ public class Graf {
      * @param to : head node id
      */
     public void removeEdge(int from, int to) {
-        removeEdge(getNode(from), getNode(to));
+        if ((getNode(from) != null) && (getNode(to) != null)) {
+            removeEdge(getNode(from), getNode(to));
+        }
     }
     
     /**
@@ -318,7 +393,10 @@ public class Graf {
      * @return List of all out edges
      */
     public List<Edge> getOutEdges(int id) {
-        return getOutEdges(getNode(id));
+        if (getNode(id) != null) {
+            return getOutEdges(getNode(id));
+        }
+        return null;
     }
     
     /**
@@ -344,7 +422,10 @@ public class Graf {
      * @return List of all in edges
      */
     public List<Edge> getInEdges(int id) {
-        return getInEdges(getNode(id));
+        if (getNode(id) != null) {
+            return getInEdges(getNode(id));
+        }
+        return null;
     }
     
     /**
@@ -370,7 +451,10 @@ public class Graf {
      * @return List of all incident edges
      */
     public List<Edge> getIncidentEdges(int id) {
-        return getIncidentEdges(getNode(id));
+        if (getNode(id) != null) {
+            return getIncidentEdges(getNode(id));
+        }
+        return null;
     }
     
     /**
@@ -401,7 +485,10 @@ public class Graf {
      * @return int of the in-degree
      */
     public int inDegree(int id) {
-        return inDegree(getNode(id));
+        if (getNode(id) != null) {
+            return inDegree(getNode(id));
+        }
+        return 0;
     }
     
     /**
@@ -421,7 +508,10 @@ public class Graf {
      * @return int of the out-degree
      */
     public int outDegree(int id) {
-        return outDegree(getNode(id));
+        if (getNode(id) != null) {
+            return outDegree(getNode(id));
+        }
+        return 0;
     }
     
     /**
@@ -441,7 +531,10 @@ public class Graf {
      * @return int of the degree
      */
     public int degree(int id) {
-        return degree(getNode(id));
+        if (getNode(id) != null) {
+            return degree(getNode(id));
+        }
+        return 0;
     }
     
     // ------ Graph Representation
@@ -497,11 +590,13 @@ public class Graf {
      */
     public Graf getReverse() {
         Graf r = new Graf();
+        System.out.println(this);
         for (int i=0; i<nbNodes(); i++) {
             r.addNode(nodes.get(i).getId());
         }
+        System.out.println(r);
         for (int j=0; j<nbEdges(); j++) {
-            r.addEdge(edges.get(j).getHead(), edges.get(j).getTail());
+            r.addEdge(edges.get(j));
         }
         return r;
     }
@@ -527,27 +622,33 @@ public class Graf {
      *
      * @return String representing the map of the graf
      */
+    @Override
     public String toString() {
-        String g = "";
+        String content = "";
         for (int i=0; i<nbNodes(); i++) {
-            g = g + "- " + nodes.get(i).getId() + " :";
-            for (int j=0; j<getSuccessors(nodes.get(i)).size(); j++) {
-                g = g + " " + getSuccessors(nodes.get(i)).get(j).getId(); 
+            content += "" + nodes.get(i).getId();
+            if (outDegree(nodes.get(i)) > 0) {
+                content += " -> " + getSuccessors(nodes.get(i)).get(0).getId();
+                for (int j=1; j<outDegree(nodes.get(i)); j++) {
+                    content += ", " + getSuccessors(nodes.get(i)).get(j).getId();
+                }
             }
-            g = g + "\n";
+            content += ";\n";
         }
-        return g;
+        return content;
     }
     
     public String toDotString() {
-        String content = "digraph finite_state_machine {\nrankdir=LR; size=\"12,8\"node [shape = circle];\n";
-        for(int i=0; i<nbEdges(); i++) {
-            content += edges.get(i).getTail().getId() + " -> " + edges.get(i).getHead().getId() + ";\n";
-        }
-        for(int j=0; j<nbNodes(); j++) {
-            if (degree(nodes.get(j)) == 0) {
-                content += nodes.get(j).getId() + ";\n";
+        String content = "digraph {\n";
+        for (int i=0; i<nbNodes(); i++) {
+            content += "\t" + nodes.get(i).getId();
+            if (outDegree(nodes.get(i)) > 0) {
+                content += " -> " + getSuccessors(nodes.get(i)).get(0).getId();
+                for (int j=1; j<outDegree(nodes.get(i)); j++) {
+                    content += ", " + getSuccessors(nodes.get(i)).get(j).getId();
+                }
             }
+            content += ";\n";
         }
         content += "}";
         return content;
@@ -569,16 +670,18 @@ public class Graf {
                     file.createNewFile();
                 }
 
-                for(int i=0; i<nbEdges(); i++) {
-                    content += edges.get(i).getTail().getId() + " -> " + edges.get(i).getHead().getId() + ";\n";
-                }
-                for(int j=0; j<nbNodes(); j++) {
-                    if (degree(nodes.get(j)) == 0) {
-                        content += nodes.get(j).getId() + ";\n";
+                for (int i=0; i<nbNodes(); i++) {
+                    content += "\t" + nodes.get(i).getId();
+                    if (outDegree(nodes.get(i)) > 0) {
+                        content += " -> " + getSuccessors(nodes.get(i)).get(0).getId();
+                        for (int j=1; j<outDegree(nodes.get(i)); j++) {
+                            content += ", " + getSuccessors(nodes.get(i)).get(j).getId();
+                        }
                     }
+                    content += ";\n";
                 }
-                content += "}";
-
+                content += "}";        
+                
                 byte[] bytes = content.getBytes();
                 fout.write(bytes);
 
