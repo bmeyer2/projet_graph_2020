@@ -15,17 +15,17 @@ CLASSES = \
 		$(SRC)/Graf.java \
 		$(SRC)/Edge.java \
         TestGrafPW2.java \
-		$(SRC)/Main.java
+		Main.java
 
 all: main
 
 main: $(CLASSES)
 	@echo "~~~ Building ~~~"
-	$(JC) $(JFLAGS) $(SRC)/*.java TestGrafPW2.java
+	$(JC) $(JFLAGS) $(SRC)/*.java Main.java TestGrafPW2.java
 
 exec: 
 	@echo "~~~ Starting ~~~"
-	java $(SRC).Main
+	java Main
     
 test: 
 	@echo "~~~ Testing ~~~"
@@ -36,9 +36,6 @@ clean:
 	rm -f $(SRC)/*.class
 	rm -f *.class
 	rm -rf Javadoc
-
-mrproper: clean
-	rm -f img/*.png
 	
 javadoc: 
 	@echo "~~~ Javadoc ~~~"
