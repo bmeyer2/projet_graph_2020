@@ -18,13 +18,13 @@ public class Edge implements Comparable<Edge> {
      *
      * tail : tail node of the edge
      * head : head node of the edge
-	 * weight : [optionnal] weight of the edge
+    * weight : [optionnal] weight of the edge
      */
 	private Node tail;
     private Node head;
 	private int weight;
 
-	// CONSTRUCTORS
+    // CONSTRUCTORS
 
     /**
      * Empty constructor of the class Edge
@@ -35,7 +35,7 @@ public class Edge implements Comparable<Edge> {
 		weight = 0;
     }
 	
-	 /**
+    /**
      * No-weight constructor of the class Edge
      *
      * @param t tail node of the edge
@@ -47,20 +47,20 @@ public class Edge implements Comparable<Edge> {
 		weight = 0;
 	}
 	
-	/**
+    /**
      * Constructor of the class Edge
      *
      * @param t tail node of the edge
-	 * @param h head node of the edge
-	 * @param w weight of the edge
-	 */
+     * @param h head node of the edge
+     * @param w weight of the edge
+     */
     public Edge(Node t, Node h, int w) {
-		tail = t;
-		head = h;
-		weight = w;
-	}
-	
-	// METHODS
+        tail = t;
+        head = h;
+        weight = w;
+    }
+    
+    // METHODS
 
     /**
      * Override of the equals method
@@ -89,8 +89,8 @@ public class Edge implements Comparable<Edge> {
     public int getWeight() {
         return weight;
     }
-	
-	 /**
+    
+     /**
      * Getter for the Edge tail
      *
      * @return tail of the edge
@@ -98,8 +98,8 @@ public class Edge implements Comparable<Edge> {
     public Node getTail() {
         return tail;
     }
-	
-	 /**
+    
+     /**
      * Getter for the Edge head
      *
      * @return head of the edge
@@ -107,14 +107,14 @@ public class Edge implements Comparable<Edge> {
     public Node getHead() {
         return head;
     }
-	
-	/**
+    
+    /**
      * Compare the current edge with another edge
      *
      * @param e The edge to compare with
      * @return int for the sort
      */
-	public int compareTo(Edge e) { 
+    public int compareTo(Edge e) { 
         int t = e.getTail().getId();
         int h = e.getHead().getId();
         int t2 = tail.getId();

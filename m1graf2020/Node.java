@@ -93,7 +93,7 @@ public class Node implements Comparable<Node> {
         return id;
     }
 	
-	 /**
+    /**
      * Getter for the isIdTaken array
      *
      * @return isIdTaken array
@@ -102,7 +102,7 @@ public class Node implements Comparable<Node> {
         return isIdTaken;
     }
 	
-	/**
+    /**
      * Compare the current node with another node
      *
      * @param n The node to compare with
