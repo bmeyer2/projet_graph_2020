@@ -20,9 +20,9 @@ public class Edge implements Comparable<Edge> {
      * head : head node of the edge
     * weight : [optionnal] weight of the edge
      */
-	private Node tail;
+    private Node tail;
     private Node head;
-	private int weight;
+    private int weight;
 
     // CONSTRUCTORS
 
@@ -30,23 +30,23 @@ public class Edge implements Comparable<Edge> {
      * Empty constructor of the class Edge
      */
     public Edge() {
-		tail = new Node();
-		head = new Node();
-		weight = 0;
+        tail = new Node();
+        head = new Node();
+        weight = 0;
     }
-	
+    
     /**
      * No-weight constructor of the class Edge
      *
      * @param t tail node of the edge
-	 * @param h head node of the edge
-	 */
+     * @param h head node of the edge
+     */
     public Edge(Node t, Node h) {
-		tail = t;
-		head = h;
-		weight = 0;
-	}
-	
+        tail = t;
+        head = h;
+        weight = 0;
+    }
+    
     /**
      * Constructor of the class Edge
      *
