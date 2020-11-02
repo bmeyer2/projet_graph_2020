@@ -53,8 +53,7 @@ public class Main {
 			
 			switch(answer){
 				case 1:
-						int[] x = {2,4,0,0,6,0,2,3,5,8,0,0,4,7,0,3,0,7,0};
-						graf = new Graf(x);
+						graf = new Graf();
 						break;
 				case 2:
 						if(graf != null) {
