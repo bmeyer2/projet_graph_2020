@@ -14,26 +14,26 @@ import java.io.*;
 
 public class UndirectedGraf extends Graf {
 
-    /**
-     * addEdge adds an undirected edge between the two given nodes
+	/**
+	 * addEdge adds an undirected edge between the two given nodes
 	 *
 	 * @param from : first node
 	 * @param to : second node
-     */
-    public void addEdge(Node from, Node to) {
+	 */
+	public void addEdge(Node from, Node to) {
 		getSuccessors(from).add(to);
 		getSuccessors(to).add(from);
 		edges.add(new Edge(from, to));
 		edges.add(new Edge(to, from));
-    }
+	}
 
 	/**
-     * removeEdge removes an undirected edge between the two given nodes
+	 * removeEdge removes an undirected edge between the two given nodes
 	 *
 	 * @param from : first node
 	 * @param to : seconde node
-     */
-    public void removeEdge(Node from, Node to) {
+	 */
+	public void removeEdge(Node from, Node to) {
 		if (existsEdge(from, to)) {
 			getSuccessors(from).remove(to);
 			for (int i=0; i<nbEdges(); i++) {
@@ -50,5 +50,5 @@ public class UndirectedGraf extends Graf {
 				}
 			}
 		}
-    }
+	}
 }
