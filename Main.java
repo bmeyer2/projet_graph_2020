@@ -20,6 +20,7 @@ public class Main {
 		String name, command;
 		Process process;
 		Scanner scanner = new Scanner(System.in);
+		Scanner reader = new Scanner(System.in);
 		Graf graf = null;
 		Node n;
 		List<Node> nodesList;
@@ -227,11 +228,53 @@ public class Main {
 						}
 						break;
 				case 15:
-						
+						System.out.println("Give the name of the DOT file to import");
+						scanner.nextLine();
+						String dotFile = scanner.nextLine();
+						System.out.println("Importing the graph from the DOT File...");
+						try {
+							reader = new Scanner(new File(dotFile));
+						}
+						catch (IOException e) {
+							e.printStackTrace();
+						}
+						String line = reader.nextLine();
+						line = reader.nextLine();
+						int end = 0;
+						graf = new Graf();
+						while (end == 0) {
+							line = reader.nextLine();
+							if (line.charAt(0) == '}') {
+								end = 1;
+							}
+							else if (line.charAt(0) == '\t') {
+								int i = 1;
+								int f = 0;
+								int x = 0;
+								while (line.charAt(i) != ';') {
+									if ((line.charAt(i) == '-') && (line.charAt(i+1) == '>')) {
+										f = 1;
+										i = i + 2;
+									}
+									else if ((line.charAt(i) == ',') || (line.charAt(i) == ' ')) {
+										i++;
+									}
+									else if (f == 0) {
+										x = Integer.parseInt(line.charAt(i)+"");
+										graf.addNode(x);
+										i++;
+									}
+									else if (f == 1) {
+										graf.addEdge(x, Integer.parseInt(line.charAt(i)+""));
+										i++;
+									}
+								}
+							}
+						}
 						break;
 				case 16:
 						if(graf != null) {
-							System.out.println("Give the name of your file");
+							System.out.println("Give the name of the file");
 							scanner.nextLine();
 							String fileName = scanner.nextLine();
 							System.out.println("Exporting the graph to a DOT File...");
